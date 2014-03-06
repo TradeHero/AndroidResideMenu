@@ -72,22 +72,25 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
-     * use the method to set up the activity which residemenu need to show;
+     * Deprecated use attachTo(ViewGroup) instead
      *
      * @param activity
      */
+    @Deprecated
     public void attachToActivity(Activity activity) {
-        initValue(activity);
-        setShadowScaleXByOrientation();
-        buildAnimationSet();
+        attachTo((ViewGroup) activity.getWindow().getDecorView());
     }
 
-    private void initValue(Activity activity) {
+
+    public void attachTo(ViewGroup targetViewGroup) {
         menuItems = new ArrayList<ResideMenuItem>();
         gestureDetector = new GestureDetector(this);
         ignoredViews = new ArrayList<View>();
-        viewDecor = (ViewGroup) activity.getWindow().getDecorView();
+        viewDecor = targetViewGroup;
         viewActivity = (ViewGroup) viewDecor.getChildAt(0);
+
+        setShadowScaleXByOrientation();
+        buildAnimationSet();
     }
 
     private void setShadowScaleXByOrientation() {
