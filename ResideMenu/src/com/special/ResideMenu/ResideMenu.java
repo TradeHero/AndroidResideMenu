@@ -133,6 +133,16 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     /**
+     * add a single items;
+     * TODO This method is a hack due to time constraint
+     *
+     * @param menuItem
+     */
+    public void addMenuItem(View menuItem) {
+        this.menuItems.add(menuItem);
+    }
+
+    /**
      * set the menu items by array list;
      *
      * @param menuItems
