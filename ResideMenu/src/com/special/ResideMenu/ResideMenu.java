@@ -53,7 +53,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      * the view which don't want to intercept touch event
      */
     private List<View> ignoredViews;
-    private List<ResideMenuItem> menuItems;
+    private List<View> menuItems;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
     private OnMenuListener menuListener;
 
@@ -83,7 +83,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
 
     public void attachTo(ViewGroup targetViewGroup) {
-        menuItems = new ArrayList<ResideMenuItem>();
+        menuItems = new ArrayList<View>();
         gestureDetector = new GestureDetector(this);
         ignoredViews = new ArrayList<View>();
         viewDecor = targetViewGroup;
@@ -137,12 +137,12 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      *
      * @param menuItems
      */
-    public void setMenuItems(List<ResideMenuItem> menuItems) {
+    public void setMenuItems(List<View> menuItems) {
         layout_menu.removeAllViews();
         this.menuItems = menuItems;
     }
 
-    public List<ResideMenuItem> getMenuItems() {
+    public List<View> getMenuItems() {
         return menuItems;
     }
 
@@ -261,7 +261,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
      * @param menu_index the position of the menu;
      * @return
      */
-    private void showMenuItem(ResideMenuItem menuItem, int menu_index) {
+    private void showMenuItem(View menuItem, int menu_index) {
 
         if (menuItem.getParent() == null)
             layout_menu.addView(menuItem);
