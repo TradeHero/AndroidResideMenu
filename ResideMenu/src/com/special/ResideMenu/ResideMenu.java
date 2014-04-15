@@ -28,6 +28,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   private ImageView mBackground;
   private LinearLayout mMenuLayout;
   private ScrollView mScrollViewMenu;
+
   private AnimatorSet mAnimationScaleUp;
   private AnimatorSet mAnimationScaleDown;
 
@@ -64,9 +65,10 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     LayoutInflater inflater =
         (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     inflater.inflate(R.layout.residemenu, this);
+
     mScrollViewMenu = (ScrollView) findViewById(R.id.sv_menu);
-    mShadow = (ImageView) findViewById(R.id.iv_shadow);
     mMenuLayout = (LinearLayout) findViewById(R.id.layout_menu);
+    mShadow = (ImageView) findViewById(R.id.iv_shadow);
     mBackground = (ImageView) findViewById(R.id.iv_background);
   }
 
@@ -79,10 +81,21 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   }
 
   public void attachTo(ViewGroup targetViewGroup) {
-    menuItems = new ArrayList<View>();
-    gestureDetector = new GestureDetector(this);
-    ignoredViews = new ArrayList<View>();
     viewDecor = targetViewGroup;
+
+    menuItems = new ArrayList<View>();
+    ignoredViews = new ArrayList<View>();
+
+    gestureDetector = new GestureDetector(this);
+
+    //CustomViewAbove customViewAbove = new CustomViewAbove(getContext());
+    //View mainView = viewDecor.getChildAt(0);
+    //viewDecor.removeViewAt(0);
+    //customViewAbove.setContent(mainView);
+    //viewActivity = customViewAbove;
+    //
+    //viewDecor.addView(customViewAbove);
+
     viewActivity = (ViewGroup) viewDecor.getChildAt(0);
 
     setShadowScaleXByOrientation();
@@ -101,8 +114,8 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   /**
    * set the menu background picture;
    */
-  public void setBackground(int imageResrouce) {
-    mBackground.setImageResource(imageResrouce);
+  public void setBackground(int imageResource) {
+    mBackground.setImageResource(imageResource);
   }
 
   /**
@@ -179,7 +192,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   }
 
   /**
-   * close the reslide menu;
+   * close the reside menu;
    */
   public void closeMenu() {
     if (isOpened) {
@@ -208,6 +221,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     if (mScrollViewMenu.getParent() != null) {
       removeMenuLayout();
     }
+
     viewDecor.addView(this, 0);
     viewDecor.addView(mScrollViewMenu);
   }
@@ -252,9 +266,9 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   }
 
   /**
-   * @param menu_index the position of the menu;
+   * @param menuIndex the position of the menu;
    */
-  private void showMenuItem(View menuItem, int menu_index) {
+  private void showMenuItem(View menuItem, int menuIndex) {
     if (menuItem.getParent() == null) {
       mMenuLayout.addView(menuItem);
     }
@@ -268,18 +282,21 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     scaleUp.setInterpolator(AnimationUtils.loadInterpolator(getContext(),
         android.R.anim.anticipate_overshoot_interpolator));
 
-    scaleUp.setStartDelay(50 * menu_index);
+    scaleUp.setStartDelay(50 * menuIndex);
     scaleUp.setDuration(400).start();
   }
 
   private void buildAnimationSet() {
-    scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
     mAnimationScaleUp = buildScaleUpAnimation(mShadow, 1.0f, 1.0f);
-    scaleDown_activity = buildScaleDownAnimation(viewActivity, 0.5f, 0.5f);
+
     mAnimationScaleDown = buildScaleDownAnimation(mShadow, shadow_ScaleX, 0.59f);
+    mAnimationScaleDown.addListener(animationListener);
+
+    scaleUp_activity = buildScaleUpAnimation(viewActivity, 1.0f, 1.0f);
     scaleUp_activity.addListener(animationListener);
     scaleUp_activity.playTogether(mAnimationScaleUp);
-    mAnimationScaleDown.addListener(animationListener);
+
+    scaleDown_activity = buildScaleDownAnimation(viewActivity, 0.5f, 0.5f);
     scaleDown_activity.playTogether(mAnimationScaleDown);
   }
 
