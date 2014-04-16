@@ -55,6 +55,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   private List<View> menuItems;
   private DisplayMetrics displayMetrics = new DisplayMetrics();
   private OnMenuListener menuListener;
+  private TouchDisableView touchDisableView;
 
   public ResideMenu(Context context) {
     super(context);
@@ -88,15 +89,15 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
     gestureDetector = new GestureDetector(this);
 
-    //CustomViewAbove customViewAbove = new CustomViewAbove(getContext());
-    //View mainView = viewDecor.getChildAt(0);
-    //viewDecor.removeViewAt(0);
-    //customViewAbove.setContent(mainView);
-    //viewActivity = customViewAbove;
-    //
-    //viewDecor.addView(customViewAbove);
+    touchDisableView = new TouchDisableView(getContext());
+    View mainView = viewDecor.getChildAt(0);
+    viewDecor.removeViewAt(0);
+    touchDisableView.setContent(mainView);
+    viewActivity = touchDisableView;
 
-    viewActivity = (ViewGroup) viewDecor.getChildAt(0);
+    viewDecor.addView(touchDisableView);
+
+    //    viewActivity = (ViewGroup) viewDecor.getChildAt(0);
 
     setShadowScaleXByOrientation();
     buildAnimationSet();
@@ -171,8 +172,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
    * the moment of onCreateView();
    */
   private void setViewPadding() {
-    this.setPadding(
-        viewActivity.getPaddingLeft(), viewActivity.getPaddingTop(),
+    this.setPadding(viewActivity.getPaddingLeft(), viewActivity.getPaddingTop(),
         viewActivity.getPaddingRight(), viewActivity.getPaddingBottom());
   }
 
@@ -183,6 +183,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     if (!isOpened) {
       isOpened = true;
       showOpenMenuRelative();
+      touchDisableView.setDisableTouch(true);
     }
   }
 
@@ -198,6 +199,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     if (isOpened) {
       isOpened = false;
       scaleUp_activity.start();
+      touchDisableView.setDisableTouch(false);
     }
   }
 
@@ -275,8 +277,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
     ViewHelper.setAlpha(menuItem, 0);
     AnimatorSet scaleUp = new AnimatorSet();
-    scaleUp.playTogether(
-        ObjectAnimator.ofFloat(menuItem, "translationX", -100.f, 0.0f),
+    scaleUp.playTogether(ObjectAnimator.ofFloat(menuItem, "translationX", -100.f, 0.0f),
         ObjectAnimator.ofFloat(menuItem, "alpha", 0.0f, 1.0f));
 
     scaleUp.setInterpolator(AnimationUtils.loadInterpolator(getContext(),
@@ -312,8 +313,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     ViewHelper.setPivotY(target, pivotY);
 
     AnimatorSet scaleDown = new AnimatorSet();
-    scaleDown.playTogether(
-        ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
+    scaleDown.playTogether(ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
         ObjectAnimator.ofFloat(target, "scaleY", targetScaleY));
 
     scaleDown.setInterpolator(
@@ -328,10 +328,8 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
    */
   private AnimatorSet buildScaleUpAnimation(View target, float targetScaleX, float targetScaleY) {
     AnimatorSet scaleUp = new AnimatorSet();
-    scaleUp.playTogether(
-        ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
-        ObjectAnimator.ofFloat(target, "scaleY", targetScaleY)
-    );
+    scaleUp.playTogether(ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
+        ObjectAnimator.ofFloat(target, "scaleY", targetScaleY));
 
     scaleUp.setDuration(250);
     return scaleUp;

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.special.ResideMenu.ResideMenu;
 
 /**
@@ -34,6 +36,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 resideMenu.openMenu();
+            }
+        });
+
+        TextView textView = (TextView) parentView.findViewById(R.id.textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
             }
         });
 
