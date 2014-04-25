@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
-public class MenuActivity extends FragmentActivity implements View.OnClickListener{
+public class MenuActivity extends FragmentActivity implements View.OnClickListener {
 
     private ResideMenu resideMenu;
     private MenuActivity mContext;

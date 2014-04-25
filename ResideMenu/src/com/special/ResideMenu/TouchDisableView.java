@@ -14,7 +14,7 @@ class TouchDisableView extends ViewGroup {
   private View mContent;
 
   //	private int mMode;
-  private boolean mDisableTouch = false;
+  private boolean mTouchDisabled = false;
 
   public TouchDisableView(Context context) {
     this(context, null);
@@ -57,10 +57,14 @@ class TouchDisableView extends ViewGroup {
 
   @Override
   public boolean onInterceptTouchEvent(MotionEvent ev) {
-    return mDisableTouch;
+    return mTouchDisabled;
   }
 
-  void setDisableTouch(boolean disableTouch) {
-    mDisableTouch = disableTouch;
+  void setTouchDisable(boolean disableTouch) {
+    mTouchDisabled = disableTouch;
+  }
+
+  boolean isTouchDisabled() {
+    return mTouchDisabled;
   }
 }
