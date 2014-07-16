@@ -30,3 +30,9 @@ proguard/
 
 # Generated source
 **/target/
+
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
