@@ -20,7 +20,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
-import com.special.residemenu.R;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +57,8 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   private DisplayMetrics displayMetrics = new DisplayMetrics();
   private OnMenuListener menuListener;
   private TouchDisableView touchDisableView;
+  private boolean enableSwipeLeftToRight;
+  private boolean enableSwipeRightToLeft;
 
   public ResideMenu(Context context) {
     super(context);
@@ -314,8 +315,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     ViewHelper.setPivotY(target, pivotY);
 
     AnimatorSet scaleDown = new AnimatorSet();
-    scaleDown.playTogether(
-        ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
+    scaleDown.playTogether(ObjectAnimator.ofFloat(target, "scaleX", targetScaleX),
         ObjectAnimator.ofFloat(target, "scaleY", targetScaleY));
 
     scaleDown.setInterpolator(
@@ -426,10 +426,10 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     }
 
     if (Math.abs(distanceX) > screenWidth * 0.3) {
-      if (distanceX > 0 && !isOpened) {
+      if (enableSwipeLeftToRight && distanceX > 0 && !isOpened) {
         // from left to right;
         openMenu();
-      } else if (distanceX < 0 && isOpened) {
+      } else if (enableSwipeRightToLeft && distanceX < 0 && isOpened) {
         // from right th left;
         closeMenu();
       }
@@ -451,6 +451,19 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
     windowManager.getDefaultDisplay().getMetrics(displayMetrics);
     return displayMetrics.widthPixels;
+  }
+
+  public void setEnableSwipeLeftToRight(boolean enableSwipeLeftToRight) {
+    this.enableSwipeLeftToRight = enableSwipeLeftToRight;
+  }
+
+  public void setEnableSwipeRightToLeft(boolean enableSwipeRightToLeft) {
+    this.enableSwipeRightToLeft = enableSwipeRightToLeft;
+  }
+
+  public void setEnableSwipe(boolean enableSwipe) {
+    this.enableSwipeLeftToRight = enableSwipe;
+    this.enableSwipeRightToLeft = enableSwipe;
   }
 
   public interface OnMenuListener {
