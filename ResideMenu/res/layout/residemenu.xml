@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/iv_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+  <RelativeLayout
+      android:id="@+id/iv_footer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      >
+
+      </RelativeLayout>
+
   <ImageView
       android:id="@+id/iv_background"
       android:adjustViewBounds="true"
@@ -23,6 +33,7 @@
       android:scrollbars="none"
       android:paddingLeft="30dp"
       android:layout_width="230dp"
+      android:layout_above="@id/iv_footer"
       android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/layout_menu"
@@ -34,4 +45,4 @@
     </LinearLayout>
   </ScrollView>
 
-</FrameLayout>
+</RelativeLayout>

@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
@@ -33,6 +34,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   private LinearLayout mMenuLayout;
   private ScrollView mScrollViewMenu;
   private ViewGroup mContainer;
+  private RelativeLayout mFooter;
 
   private AnimatorSet mScaleUpContent;
   private AnimatorSet mScaleDownContent;
@@ -76,6 +78,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     mShadow = (ImageView) findViewById(R.id.iv_shadow);
     mBackground = (ImageView) findViewById(R.id.iv_background);
     mContainer = (ViewGroup) findViewById(R.id.iv_container);
+    mFooter = (RelativeLayout) findViewById(R.id.iv_footer);
   }
 
   /**
@@ -457,6 +460,10 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
 
   public ViewGroup getContainer() {
       return mContainer;
+  }
+
+  public RelativeLayout getFooter() {
+      return mFooter;
   }
 
   public void setEnableSwipeLeftToRight(boolean enableSwipeLeftToRight) {
