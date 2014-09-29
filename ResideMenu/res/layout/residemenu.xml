@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <RelativeLayout
-      android:id="@+id/iv_footer"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      >
-
-      </RelativeLayout>
-
   <ImageView
       android:id="@+id/iv_background"
       android:adjustViewBounds="true"
@@ -27,6 +18,16 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:scaleType="fitXY"/>
+
+  <RelativeLayout
+      android:id="@+id/iv_footer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:minHeight="48dp"
+      >
+
+      </RelativeLayout>
 
   <ScrollView
       android:id="@+id/sv_menu"
