@@ -19,14 +19,14 @@
       android:layout_height="fill_parent"
       android:scaleType="fitXY"/>
 
-  <RelativeLayout
+  <FrameLayout
       android:id="@+id/iv_footer"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       >
 
-      </RelativeLayout>
+      </FrameLayout>
 
   <ScrollView
       android:id="@+id/sv_menu"
