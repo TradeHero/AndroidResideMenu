@@ -32,6 +32,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
   private ImageView mBackground;
   private LinearLayout mMenuLayout;
   private ScrollView mScrollViewMenu;
+  private ViewGroup mContainer;
 
   private AnimatorSet mScaleUpContent;
   private AnimatorSet mScaleDownContent;
@@ -74,6 +75,7 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
     mMenuLayout = (LinearLayout) findViewById(R.id.layout_menu);
     mShadow = (ImageView) findViewById(R.id.iv_shadow);
     mBackground = (ImageView) findViewById(R.id.iv_background);
+    mContainer = (ViewGroup) findViewById(R.id.iv_container);
   }
 
   /**
@@ -451,6 +453,10 @@ public class ResideMenu extends FrameLayout implements GestureDetector.OnGesture
         (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
     windowManager.getDefaultDisplay().getMetrics(displayMetrics);
     return displayMetrics.widthPixels;
+  }
+
+  public ViewGroup getContainer() {
+      return mContainer;
   }
 
   public void setEnableSwipeLeftToRight(boolean enableSwipeLeftToRight) {
